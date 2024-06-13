@@ -1,0 +1,13 @@
+if (drawing)
+{
+    g = panel1.CreateGraphics();
+    if (shape == "Rectangle")
+    {
+        g.DrawRectangle(pen, Math.Min(x, e.X), Math.Min(y, e.Y), Math.Abs(x - e.X), Math.Abs(y - e.Y));
+    }
+    else if (shape == "Ellipse")
+    {
+        g.DrawEllipse(pen, Math.Min(x, e.X), Math.Min(y, e.Y), Math.Abs(x - e.X), Math.Abs(y - e.Y));
+    }
+    drawing = false;
+}

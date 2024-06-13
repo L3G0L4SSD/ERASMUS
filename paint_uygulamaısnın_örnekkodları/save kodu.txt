@@ -1,0 +1,40 @@
+SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+// Kaydetme iletişim kutusu ayarları
+saveFileDialog.Filter = "PNG Image|*.png|JPEG Image|*.jpg;*.jpeg|Bitmap Image|*.bmp";
+saveFileDialog.Title = "Save an Image File";
+saveFileDialog.ShowDialog();
+
+// Eğer kullanıcı bir dosya seçerse
+if (saveFileDialog.FileName != "")
+{
+    try
+    {
+        // Panel boyutunda bir bitmap oluştur
+        Bitmap bmp = new Bitmap(panel1.Width, panel1.Height);
+
+        // Bitmap üzerinde çizim yapmak için Graphics nesnesi oluştur
+        using (Graphics g = Graphics.FromImage(bmp))
+        {
+            // Paneli temiz bir renkle doldur
+            g.Clear(panel1.BackColor);
+
+            // Panel üzerindeki çizimleri çiz
+            foreach (Control control in panel1.Controls)
+            {
+                if (control is Shape shape)
+                {
+                    shape.Draw(g);
+                }
+            }
+        }
+
+        // Dosyayı kaydet
+        bmp.Save(saveFileDialog.FileName);
+    }
+    catch (Exception ex)
+    {
+        // Hata durumunda kullanıcıya uyarı ver
+        MessageBox.Show("Error: Could not save file. Original error: " + ex.Message);
+    }
+}

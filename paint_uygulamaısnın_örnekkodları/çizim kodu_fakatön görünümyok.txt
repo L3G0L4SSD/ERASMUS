@@ -1,0 +1,35 @@
+       private void panel1_MouseMove(object sender, MouseEventArgs e)
+       {
+           if (drawing && shape == "Free Draw")
+           {
+               g = panel1.CreateGraphics();
+               g.DrawLine(pen, new Point(x, y), e.Location);
+               x = e.X;
+               y = e.Y;
+           }
+       }
+
+       private void panel1_MouseUp(object sender, MouseEventArgs e)
+       {
+           if (drawing)
+           {
+               g = panel1.CreateGraphics();
+               if (shape == "Rectangle")
+               {
+                   int width = Math.Abs(x - e.X);
+                   int height = Math.Abs(y - e.Y);
+                   int left = Math.Min(x, e.X);
+                   int top = Math.Min(y, e.Y);
+                   g.DrawRectangle(pen, left, top, width, height);
+               }
+               else if (shape == "Ellipse")
+               {
+                   int width = Math.Abs(x - e.X);
+                   int height = Math.Abs(y - e.Y);
+                   int left = Math.Min(x, e.X);
+                   int top = Math.Min(y, e.Y);
+                   g.DrawEllipse(pen, left, top, width, height);
+               }
+               drawing = false;
+           }
+       }
